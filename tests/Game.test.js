@@ -28,6 +28,16 @@ function testGame() {
       });
     });
 
+    describe("constructor()", () => {
+      it("should create a new Game object with empty properties", () => {
+        const game = new Game();
+        assert.deepStrictEqual(game.deck, []);
+        assert.deepStrictEqual(game.players, []);
+        assert.deepStrictEqual(game.drawPile, []);
+        assert.deepStrictEqual(game.discardPile, []);
+      });
+    });
+
     describe("Create Deck", () => {
       it("should create a deck with 52 cards", () => {
         const deck = new Deck().getDeck();
@@ -56,6 +66,16 @@ function testGame() {
         game.dealsCard(2);
         const set = new Set(game.deck.map((card) => card.toString()));
         expect(set.size).equal(42);
+      });
+    });
+
+    describe("getNextPlayer()", () => {
+      it("should handle negative currentPlayer values", () => {
+        const game = new Game();
+        const currentPlayer = -1;
+        const numberOfPlayers = 3;
+        const nextPlayer = game.getNextPlayer(currentPlayer, numberOfPlayers);
+        expect(nextPlayer).equal(2);
       });
     });
   });
