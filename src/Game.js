@@ -20,6 +20,18 @@ class Game {
     }
   }
 
+  /* calculate the index of the current player. 
+     This is done by taking the remainder of the currentPlayer variable
+     and the number of players in the game. If the currentPlayer is negative,
+     then add the number of players to it. This is done to ensure that the currentPlayer variable is always positive
+  */
+  getNextPlayer(currentPlayer, numberOfPlayers) {
+    currentPlayer %= numberOfPlayers;
+    if (currentPlayer < 0) currentPlayer += numberOfPlayers;
+    currentPlayer %= numberOfPlayers;
+    return currentPlayer;
+  }
+
   startGame(numberOfPlayers) {
     //  if number of players is greater than 4 or less than 2, an error message will be displayed and the program will terminate.
     if (numberOfPlayers < 2 || numberOfPlayers > 4) {
@@ -52,15 +64,8 @@ class Game {
         console.log("The game has ended in a draw.");
         break;
       }
-      /*
-        calculate the index of the current player. 
-        This is done by taking the remainder of the currentPlayer variable
-        and the number of players in the game. If the currentPlayer is negative,
-        then add the number of players to it. This is done to ensure that the currentPlayer variable is always positive
-     */
-      currentPlayer %= numberOfPlayers;
-      if (currentPlayer < 0) currentPlayer += numberOfPlayers;
-      currentPlayer %= numberOfPlayers;
+
+      currentPlayer = this.getNextPlayer(currentPlayer, numberOfPlayers);
 
       // a boolean variable to keep track of whether the current player has matched any cards with the discard pile or not
       let cardMatched = false;
